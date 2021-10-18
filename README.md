@@ -2,19 +2,19 @@
 A plugin that subtly smooths camera movements.  
   
 Config  
-![](https://i.imgur.com/RfbhHbE.png)  
+![](https://i.imgur.com/BQlUQmZ.png)  
   
 90% Smoothing  
-![](https://i.imgur.com/qZN8lIC.gif)  
+![90%](https://i.imgur.com/pvDyaxI.gif)  
   
 70% Smoothing  
-![](https://i.imgur.com/8pXcFfG.gif)  
+![70%](https://i.imgur.com/Jz0HU94.gif)  
   
 50% Smoothing  
-![](https://i.imgur.com/y7OUoHz.gif)  
+![50%](https://i.imgur.com/ZuGSKA4.gif)  
   
 0% Smoothing  
-![](https://i.imgur.com/A71ysj2.gif)  
+![0%](https://i.imgur.com/o6rPH8M.gif)  
   
 ###### (Note: Pitch, or uppy-downy movement, is not smoothed as there's no setter for pitch in RuneLite's API)  
   
