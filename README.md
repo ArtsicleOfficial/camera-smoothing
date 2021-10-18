@@ -17,3 +17,5 @@ Config
 ![](https://i.imgur.com/A71ysj2.gif)  
   
 ###### (Note: Pitch, or uppy-downy movement, is not smoothed as there's no setter for pitch in RuneLite's API)  
+  
+![](https://raw.githubusercontent.com/ArtsicleOfficial/camera-smoothing/master/icon.png)  
