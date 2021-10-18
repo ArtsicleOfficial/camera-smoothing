@@ -19,7 +19,7 @@ public interface CameraSmoothingConfig extends Config
 	)
 	default int smoothness()
 	{
-		return 50;
+		return 60;
 	}
 
 }
