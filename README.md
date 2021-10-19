@@ -4,6 +4,9 @@ A plugin that subtly smooths camera movements.
 Config  
 ![](https://i.imgur.com/BQlUQmZ.png)  
   
+New Feature: Zoom Smoothing  
+![Zoom Smoothing](https://i.imgur.com/p9AxdsC.gif)  
+  
 90% Smoothing  
 ![90%](https://i.imgur.com/pvDyaxI.gif)  
   
