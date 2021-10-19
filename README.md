@@ -2,7 +2,7 @@
 A plugin that subtly smooths camera movements.  
   
 Config  
-![](https://i.imgur.com/BQlUQmZ.png)  
+![](https://i.imgur.com/uaAjK67.png)  
   
 New Feature: Zoom Smoothing  
 ![Zoom Smoothing](https://i.imgur.com/p9AxdsC.gif)  
