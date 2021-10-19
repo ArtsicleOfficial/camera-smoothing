@@ -21,4 +21,19 @@ public interface CameraSmoothingConfig extends Config
 		return 60;
 	}
 
+	@ConfigItem(
+		keyName="smoothZoom",
+		name = "Smooth Zoom",
+		description = "Whether or not to smooth the camera zoom"
+	)
+	default boolean smoothZoom() { return true; }
+
+	@ConfigItem(
+			keyName="smoothRotation",
+			name = "Smooth Rotation",
+			description = "Whether or not to smooth the camera rotation"
+	)
+	default boolean smoothRotation() { return true; }
+
+
 }

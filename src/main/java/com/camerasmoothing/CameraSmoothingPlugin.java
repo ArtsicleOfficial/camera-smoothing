@@ -10,6 +10,7 @@ import net.runelite.api.events.ScriptCallbackEvent;
 import net.runelite.client.callback.ClientThread;
 import net.runelite.client.config.ConfigManager;
 import net.runelite.client.eventbus.Subscribe;
+import net.runelite.client.events.ConfigChanged;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
 
@@ -81,7 +82,18 @@ public class CameraSmoothingPlugin extends Plugin
 		}
 		previousCamera[index] += deltaChange;
 	}
-
+	@Subscribe
+	public void onConfigChanged(ConfigChanged ev) {
+		if(ev.getKey().equals("smoothRotation")) {
+			if(config.smoothRotation()) {
+				previousCamera[YAW_INDEX] = client.getMapAngle();
+			}
+		} else if(ev.getKey().equals("smoothZoom")) {
+			if(config.smoothZoom()) {
+				previousCamera[SCROLL_INDEX] = client.getVar(VarClientInt.CAMERA_ZOOM_RESIZABLE_VIEWPORT);
+			}
+		}
+	}
 	@Subscribe
 	public void onBeforeRender(BeforeRender render) {
 		if(client.getGameState() != GameState.LOGGED_IN) {
@@ -91,13 +103,16 @@ public class CameraSmoothingPlugin extends Plugin
 		int changed;
 		int newDeltaAngle;
 
-		//Pitch stuff to be added if runelite ever decides to add a Client.setCameraPitchTarget method
-		//Until then, yaw going to have to stick with yaw!
-		//applySmoothingToAngle(PITCH_INDEX);
-		applySmoothingToAngle(YAW_INDEX);
+		if(config.smoothRotation()) {
+			//Pitch stuff to be added if runelite ever decides to add a Client.setCameraPitchTarget method
+			//Until then, yaw going to have to stick with yaw!
+			//applySmoothingToAngle(PITCH_INDEX);
+			applySmoothingToAngle(YAW_INDEX);
+		}
 
-		applySmoothingToZoom(SCROLL_INDEX);
-
+		if(config.smoothZoom()) {
+			applySmoothingToZoom(SCROLL_INDEX);
+		}
 
 	}
 
