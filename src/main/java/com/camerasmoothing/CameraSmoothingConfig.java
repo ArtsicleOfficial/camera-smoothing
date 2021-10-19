@@ -9,7 +9,6 @@ public interface CameraSmoothingConfig extends Config
 			"%"
 	)
 	@Range(
-			min = 0,
 			max = 100
 	)
 	@ConfigItem(
