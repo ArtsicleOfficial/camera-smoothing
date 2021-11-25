@@ -43,7 +43,12 @@ public class CameraSmoothingPlugin extends Plugin
 		return x+(int)((y-x)*alpha);
 	}
 	private int getSmallestAngle(int x, int y) {
-		return ((y-x) + HALF_ROTATION) % FULL_ROTATION - HALF_ROTATION;
+		return mod(((y-x) + HALF_ROTATION), FULL_ROTATION) - HALF_ROTATION;
+	}
+	//https://stackoverflow.com/questions/1878907/how-can-i-find-the-difference-between-two-angles
+	//This function was tested to produce results that were much more reasonable than the modulo operator
+	public int mod(int a, int n) {
+		return (int)(a - Math.floor(a/(float)n) * n);
 	}
 	private void applySmoothingToAngle(int index) {
 		int deltaChange;
