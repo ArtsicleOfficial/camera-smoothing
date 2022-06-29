@@ -75,7 +75,7 @@ public class CameraSmoothingPlugin extends Plugin
 		int deltaChange;
 		int changed;
 		int newZoom;
-		newZoom = client.getVar(VarClientInt.CAMERA_ZOOM_RESIZABLE_VIEWPORT) - previousCamera[index];
+		newZoom = client.getVarcIntValue(VarClientInt.CAMERA_ZOOM_RESIZABLE_VIEWPORT) - previousCamera[index];
 		deltaCamera[index] += newZoom;
 
 		deltaChange = lerp(deltaCamera[index],0,Math.max(0,Math.min(1,(config.smoothness()) / 100.0f)));
