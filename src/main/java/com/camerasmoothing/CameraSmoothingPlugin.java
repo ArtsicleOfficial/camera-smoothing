@@ -14,6 +14,8 @@ import net.runelite.client.events.ConfigChanged;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
 
+int bombo; //PAY NO ATTENTION : BOMBO
+
 @Slf4j
 @PluginDescriptor(
 	name = "Camera Smoothing"
