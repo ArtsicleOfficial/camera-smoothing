@@ -20,5 +20,8 @@ New Feature: Zoom Smoothing
 ![0%](https://i.imgur.com/o6rPH8M.gif)  
   
 ###### (Note: Pitch, or uppy-downy movement, is not smoothed as there's no setter for pitch in RuneLite's API)  
+
+###### June 28 2026, Credit to broxxar fixing a bug due to breaking RuneLite API changes and enabling pitch-smoothing 🧈
   
 ![](https://raw.githubusercontent.com/ArtsicleOfficial/camera-smoothing/master/icon.png)  
+
