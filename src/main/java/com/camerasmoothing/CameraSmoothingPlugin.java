@@ -29,8 +29,8 @@ public class CameraSmoothingPlugin extends Plugin
 	@Inject
 	private ClientThread clientThread;
 
-	private final int HALF_ROTATION = 1024;
-	private final int FULL_ROTATION = 2048;
+	private final int HALF_ROTATION = 8192;
+	private final int FULL_ROTATION = 16384;
 
 	private final int PITCH_INDEX = 0;
 	private final int YAW_INDEX = 1;
@@ -56,7 +56,7 @@ public class CameraSmoothingPlugin extends Plugin
 		int deltaChange;
 		int changed;
 		int newDeltaAngle;
-		newDeltaAngle = getSmallestAngle(previousCamera[index],index == YAW_INDEX ? client.getMapAngle() : 0/*No pitch method in RL*/);
+		newDeltaAngle = getSmallestAngle(previousCamera[index],index == YAW_INDEX ? client.getCameraYaw() : 0/*No pitch method in RL*/);
 		deltaCamera[index] += newDeltaAngle;
 
 		deltaChange = lerp(deltaCamera[index],0,(config.smoothness()/100.0f));
@@ -93,7 +93,7 @@ public class CameraSmoothingPlugin extends Plugin
 	public void onConfigChanged(ConfigChanged ev) {
 		if(ev.getKey().equals("smoothRotation")) {
 			if(config.smoothRotation()) {
-				previousCamera[YAW_INDEX] = client.getMapAngle();
+				previousCamera[YAW_INDEX] = client.getCameraYaw();
 			}
 		} else if(ev.getKey().equals("smoothZoom")) {
 			if(config.smoothZoom()) {
