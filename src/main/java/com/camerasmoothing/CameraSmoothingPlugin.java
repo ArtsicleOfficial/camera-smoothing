@@ -7,6 +7,7 @@ import net.runelite.api.*;
 import net.runelite.api.events.BeforeRender;
 import net.runelite.api.events.GameStateChanged;
 import net.runelite.api.events.GameTick;
+import net.runelite.api.events.MenuOptionClicked;
 import net.runelite.client.callback.ClientThread;
 import net.runelite.client.config.ConfigManager;
 import net.runelite.client.eventbus.Subscribe;
@@ -40,6 +41,7 @@ public class CameraSmoothingPlugin extends Plugin
 	private int[] previousCamera = new int[3];
 
 	private boolean zoomReady = false;
+	private boolean pendingSnap = false;
 
 	private int lerp(int x, int y, float alpha) {
 		return x+(int)((y-x)*alpha);
@@ -56,6 +58,12 @@ public class CameraSmoothingPlugin extends Plugin
 		int deltaChange;
 		int changed;
 		int newDeltaAngle;
+
+		if(index == YAW_INDEX && pendingSnap) {
+			deltaCamera[index] += getSmallestAngle(previousCamera[index], client.getCameraYawTarget());
+			pendingSnap = false;
+		}
+
 		newDeltaAngle = getSmallestAngle(previousCamera[index],index == YAW_INDEX ? client.getCameraYaw() : client.getCameraPitch());
 		deltaCamera[index] += newDeltaAngle;
 
@@ -88,6 +96,24 @@ public class CameraSmoothingPlugin extends Plugin
 			setZoom(changed);
 		}
 		previousCamera[index] += deltaChange;
+	}
+	@Subscribe
+	public void onMenuOptionClicked(MenuOptionClicked ev) {
+		if(!config.smoothRotation()) {
+			return;
+		}
+
+		if(
+			ev.getMenuAction() == MenuAction.CC_OP &&
+			(
+				"Look North".equals(ev.getMenuOption()) || 
+				"Look East".equals(ev.getMenuOption()) || 
+				"Look South".equals(ev.getMenuOption()) || 
+				"Look West".equals(ev.getMenuOption())
+			)
+		) {
+			pendingSnap = true;
+		}
 	}
 	@Subscribe
 	public void onConfigChanged(ConfigChanged ev) {
