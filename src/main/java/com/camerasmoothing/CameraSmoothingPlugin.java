@@ -56,7 +56,7 @@ public class CameraSmoothingPlugin extends Plugin
 		int deltaChange;
 		int changed;
 		int newDeltaAngle;
-		newDeltaAngle = getSmallestAngle(previousCamera[index],index == YAW_INDEX ? client.getCameraYaw() : 0/*No pitch method in RL*/);
+		newDeltaAngle = getSmallestAngle(previousCamera[index],index == YAW_INDEX ? client.getCameraYaw() : client.getCameraPitch());
 		deltaCamera[index] += newDeltaAngle;
 
 		deltaChange = lerp(deltaCamera[index],0,(config.smoothness()/100.0f));
@@ -65,9 +65,9 @@ public class CameraSmoothingPlugin extends Plugin
 		deltaCamera[index] -= deltaChange;
 		if(index == YAW_INDEX) {
 			client.setCameraYawTarget(changed);
-		}/* else if(index == PITCH_INDEX) {
-			//No pitch method in RL yet
-		}*/
+		} else if(index == PITCH_INDEX) {
+			client.setCameraPitchTarget(changed);
+		}
 		previousCamera[index] += deltaChange;
 	}
 	private void setZoom(int amount) {
@@ -112,9 +112,7 @@ public class CameraSmoothingPlugin extends Plugin
 		int newDeltaAngle;
 
 		if(config.smoothRotation()) {
-			//Pitch stuff to be added if runelite ever decides to add a Client.setCameraPitchTarget method
-			//Until then, yaw going to have to stick with yaw!
-			//applySmoothingToAngle(PITCH_INDEX);
+			applySmoothingToAngle(PITCH_INDEX);
 			applySmoothingToAngle(YAW_INDEX);
 		}
 
