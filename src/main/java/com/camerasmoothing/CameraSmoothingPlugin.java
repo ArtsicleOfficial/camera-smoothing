@@ -8,6 +8,7 @@ import net.runelite.api.events.BeforeRender;
 import net.runelite.api.events.GameStateChanged;
 import net.runelite.api.events.GameTick;
 import net.runelite.api.events.MenuOptionClicked;
+import net.runelite.api.events.ScriptPreFired;
 import net.runelite.client.callback.ClientThread;
 import net.runelite.client.config.ConfigManager;
 import net.runelite.client.eventbus.Subscribe;
@@ -32,6 +33,10 @@ public class CameraSmoothingPlugin extends Plugin
 
 	private final int HALF_ROTATION = 8192;
 	private final int FULL_ROTATION = 16384;
+
+	// [clientscript,toplevel_compass_op] - the compass "Look North/East/South/West" handler.
+	// https://github.com/Joshua-F/osrs-dumps/blob/master/script/%5Bclientscript%2Ctoplevel_compass_op%5D.cs2
+	private final int SCRIPTID_COMPASS_ANGLE = 1050;
 
 	private final int PITCH_INDEX = 0;
 	private final int YAW_INDEX = 1;
@@ -115,6 +120,14 @@ public class CameraSmoothingPlugin extends Plugin
 			pendingSnap = true;
 		}
 	}
+	
+	@Subscribe
+	public void onScriptPreFired(ScriptPreFired ev) {
+		if(ev.getScriptId() == SCRIPTID_COMPASS_ANGLE) {
+			pendingSnap = true;
+		}
+	}
+	
 	@Subscribe
 	public void onConfigChanged(ConfigChanged ev) {
 		if(ev.getKey().equals("smoothRotation")) {
